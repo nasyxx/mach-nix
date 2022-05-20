@@ -1,0 +1,18 @@
+diff --git a/mach_nix/nix/mkPython.nix b/mach_nix/nix/mkPython.nix
+index af0e5a7..d953143 100644
+--- a/mach_nix/nix/mkPython.nix
++++ b/mach_nix/nix/mkPython.nix
+@@ -126,10 +126,9 @@ let
+       });
+       final_env = py_final_with_pkgs.override (oa: {
+         inherit ignoreCollisions;
+-        makeWrapperArgs = [
+-          ''--suffix-each PATH ":" "${toString (map (p: "${p}/bin") extra_pkgs_other)}"''
+-          ''--set QT_PLUGIN_PATH ${py_final_with_pkgs}/plugins''
+-        ];
++        makeWrapperArgs =
++          (map (p: "--suffix PATH : ${p}/bin") extra_pkgs_other)
++          ++ [''--set QT_PLUGIN_PATH ${py_final_with_pkgs}/plugins''];
+       });
+     in let
+       self = final_env.overrideAttrs (oa: {
