@@ -8,6 +8,9 @@ rec {
       sha256 = "0mrp73k6nh3cphbamsv9k330irz5xnzays6d66w6xf857xj1gfx1";
     };
     format = "pyproject";
+    requirements = ''
+      setuptools
+    '';
     doCheck = false;
   };
   resolvelib = python.pkgs.buildPythonPackage {
